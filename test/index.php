@@ -1,12 +1,12 @@
 <?php
-include_once '../src/php/dateFormatLocalizer.php';
+include_once '../src/php/DateFormatLocalizer.php';
 $date_string = $_POST['date'];
 $language = $_POST['language'];
 $country = $_POST['country'];
 $calendar = $_POST['calendar'];
 if ( ! empty($date_string))
 {
-    $obj = new dateFormatLocalizer($country, $language, $calendar);
+    $obj = new DateFormatLocalizer($country, $language, $calendar);
     $json = json_encode($obj, JSON_PRETTY_PRINT);
 }
 ?>
