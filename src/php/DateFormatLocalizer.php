@@ -55,7 +55,8 @@ class DateFormatLocalizer {
         self::FORMAT_LONG
     ];
     private $error_messages = [
-        'E001' => 'Date input is invalid.'
+        'E001' => 'Date input is invalid.',
+        'E002' => 'Input date is not supported by the calendar.'
     ];
 
     /**
@@ -246,7 +247,41 @@ class DateFormatLocalizer {
      */
     private function format_taiwanese_calendar()
     {
-        $this->date_formatted = '';
+        $year = intval(date('Y', $this->date_int))-1911;
+        if (1 > $year)
+        {
+            $this->date_formatted = '****-**-**';
+            $this->errors[] = $this->error_messages['E002'];
+            return;
+        }
+        if (self::LOCALE_ENGLISH_US == $this->set_locale || self::LOCALE_ENGLISH_UK == $this->set_locale)
+        {
+            switch ($this->set_format)
+            {
+                case self::FORMAT_NUMBERS:
+                    $this->date_formatted = 'ROC ' . date('d/m/', $this->date_int) . $year;
+                    break;
+                case self::FORMAT_SHORT:
+                    $this->date_formatted = 'ROC ' . date('j M ', $this->date_int) . $year;
+                    break;
+                case self::FORMAT_LONG:
+                    $this->date_formatted = 'ROC ' . date('j F ', $this->date_int) . $year;
+                    break;
+            }
+        } else {
+            switch ($this->set_format)
+            {
+                case self::FORMAT_NUMBERS:
+                    $this->date_formatted = $year . date('.m.d', $this->date_int);
+                    break;
+                case self::FORMAT_SHORT:
+                    $this->date_formatted = $year . date('年m月d日', $this->date_int);
+                    break;
+                case self::FORMAT_LONG:
+                    $this->date_formatted = '民國' . $year . date('年m月d日', $this->date_int);
+                    break;
+            }
+        }
     }
 
     /**
@@ -282,16 +317,28 @@ class DateFormatLocalizer {
                     $this->date_formatted = date('j F Y', $this->date_int);
                     break;
             }
-        } elseif (in_array($this->set_locale, [self::LOCALE_JAPANESE, self::LOCALE_CHINESE_TAIWAN, self::LOCALE_CHINESE_CHINA]))
+        } elseif (self::LOCALE_JAPANESE == $this->set_locale)
         {
             switch ($this->set_format)
             {
                 case self::FORMAT_NUMBERS:
-                    $this->date_formatted = date('y年m月d日', $this->date_int);
+                    $this->date_formatted = date('y.m.d', $this->date_int);
                     break;
                 case self::FORMAT_SHORT:
                 case self::FORMAT_LONG:
-                    $this->date_formatted = date('y.m.d', $this->date_int);
+                    $this->date_formatted = date('y年m月d日', $this->date_int);
+                    break;
+            }
+        } elseif (in_array($this->set_locale, [self::LOCALE_CHINESE_TAIWAN, self::LOCALE_CHINESE_CHINA]))
+        {
+            switch ($this->set_format)
+            {
+                case self::FORMAT_NUMBERS:
+                    $this->date_formatted = date('y-m-d', $this->date_int);
+                    break;
+                case self::FORMAT_SHORT:
+                case self::FORMAT_LONG:
+                    $this->date_formatted = date('y年m月d日', $this->date_int);
                     break;
             }
         } elseif (self::LOCALE_THAI == $this->set_locale)
