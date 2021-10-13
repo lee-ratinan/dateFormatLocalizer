@@ -34,7 +34,6 @@ class DateFormatLocalizer {
      * OTHERS
      */
     const DATE_FORMAT_ISO8601 = 'Y-m-d';
-    const STRING_DASH = '-';
 
     private $supported_calendar = [
         self::CALENDAR_GREGORIAN,
@@ -93,6 +92,38 @@ class DateFormatLocalizer {
      * @var string[] $errors Error message(s)
      */
     public $errors = [];
+
+    /**
+     * MONTHS IN LANGUAGES
+     */
+    private $months_full_thai = [
+        'มกราคม',
+        'กุมภาพันธ์',
+        'มีนาคม',
+        'เมษายน',
+        'พฤษภาคม',
+        'มิถุนายน',
+        'กรกฎาคม',
+        'สิงหาคม',
+        'กันยายน',
+        'ตุลาคม',
+        'พฤศจิกายน',
+        'ธันวาคม',
+    ];
+    private $months_abbr_thai = [
+        'ม.ค.',
+        'ก.พ.',
+        'มี.ค.',
+        'เม.ย.',
+        'พ.ค.',
+        'มิ.ย.',
+        'ก.ค.',
+        'ส.ค.',
+        'ก.ย.',
+        'ต.ค.',
+        'พ.ย.',
+        'ธ.ค.',
+    ];
 
     /**
      * DateFormatLocalizer constructor.
@@ -181,15 +212,17 @@ class DateFormatLocalizer {
         {
             case self::CALENDAR_JAPANESE:
                 $this->format_japanese_calendar();
+                break;
             case self::CALENDAR_THAI:
                 $this->format_thai_calendar();
+                break;
             case self::CALENDAR_TAIWANESE:
                 $this->format_taiwanese_calendar();
+                break;
             case self::CALENDAR_GREGORIAN:
             default:
                 $this->format_gregorian_calendar();
         }
-        $this->date_formatted = 'output';
     }
 
     /**
@@ -197,6 +230,7 @@ class DateFormatLocalizer {
      */
     private function format_japanese_calendar()
     {
+        $this->date_formatted = '';
     }
 
     /**
@@ -204,6 +238,7 @@ class DateFormatLocalizer {
      */
     private function format_thai_calendar()
     {
+        $this->date_formatted = '';
     }
 
     /**
@@ -211,6 +246,7 @@ class DateFormatLocalizer {
      */
     private function format_taiwanese_calendar()
     {
+        $this->date_formatted = '';
     }
 
     /**
@@ -218,5 +254,63 @@ class DateFormatLocalizer {
      */
     private function format_gregorian_calendar()
     {
+        if (self::LOCALE_ENGLISH_US == $this->set_locale)
+        {
+            switch ($this->set_format)
+            {
+                case self::FORMAT_NUMBERS:
+                    $this->date_formatted = date('m/d/y', $this->date_int);
+                    break;
+                case self::FORMAT_SHORT:
+                    $this->date_formatted = date('M j, Y', $this->date_int);
+                    break;
+                case self::FORMAT_LONG:
+                    $this->date_formatted = date('F j, Y', $this->date_int);
+                    break;
+            }
+        } elseif (self::LOCALE_ENGLISH_UK == $this->set_locale)
+        {
+            switch ($this->set_format)
+            {
+                case self::FORMAT_NUMBERS:
+                    $this->date_formatted = date('d/m/y', $this->date_int);
+                    break;
+                case self::FORMAT_SHORT:
+                    $this->date_formatted = date('j M Y', $this->date_int);
+                    break;
+                case self::FORMAT_LONG:
+                    $this->date_formatted = date('j F Y', $this->date_int);
+                    break;
+            }
+        } elseif (in_array($this->set_locale, [self::LOCALE_JAPANESE, self::LOCALE_CHINESE_TAIWAN, self::LOCALE_CHINESE_CHINA]))
+        {
+            switch ($this->set_format)
+            {
+                case self::FORMAT_NUMBERS:
+                    $this->date_formatted = date('y年m月d日', $this->date_int);
+                    break;
+                case self::FORMAT_SHORT:
+                case self::FORMAT_LONG:
+                    $this->date_formatted = date('y.m.d', $this->date_int);
+                    break;
+            }
+        } elseif (self::LOCALE_THAI == $this->set_locale)
+        {
+            $d = date('j', $this->date_int);
+            $mi = date('n', $this->date_int)-1;
+            $y = date('Y', $this->date_int);
+            switch ($this->set_format)
+            {
+                case self::FORMAT_NUMBERS:
+                    $this->date_formatted = date('d/m/y', $this->date_int);
+                    break;
+                case self::FORMAT_SHORT:
+                    $this->date_formatted = $d . ' ' . $this->months_abbr_thai[$mi] . ' ' . $y;
+                    break;
+                case self::FORMAT_LONG:
+                    $this->date_formatted = $d . ' ' . $this->months_full_thai[$mi] . ' ' . $y;
+                    break;
+            }
+        }
     }
 }
