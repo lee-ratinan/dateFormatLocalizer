@@ -239,7 +239,52 @@ class DateFormatLocalizer {
      */
     private function format_thai_calendar()
     {
-        $this->date_formatted = '';
+        $year = intval(date('Y', $this->date_int))+543;
+        $month = date('n', $this->date_int);
+        $month_index = intval(date('n', $this->date_int))-1;
+        $date = date('j', $this->date_int);
+        if (self::LOCALE_ENGLISH_US == $this->set_locale)
+        {
+            switch ($this->set_format)
+            {
+                case self::FORMAT_NUMBERS:
+                    $this->date_formatted = "$month/$date/$year BE";
+                    break;
+                case self::FORMAT_SHORT:
+                    $this->date_formatted = date('M', $this->date_int) . " $date, $year BE";
+                    break;
+                case self::FORMAT_LONG:
+                    $this->date_formatted = date('F', $this->date_int) . " $date, $year BE";
+                    break;
+            }
+        } elseif (self::LOCALE_ENGLISH_UK == $this->set_locale)
+        {
+            switch ($this->set_format)
+            {
+                case self::FORMAT_NUMBERS:
+                    $this->date_formatted = "$date/$month/$year BE";
+                    break;
+                case self::FORMAT_SHORT:
+                    $this->date_formatted = $date . date(' M ', $this->date_int) . "$year BE";
+                    break;
+                case self::FORMAT_LONG:
+                    $this->date_formatted = $date . date(' F ', $this->date_int) . "$year BE";
+                    break;
+            }
+        } else {
+            switch ($this->set_format)
+            {
+                case self::FORMAT_NUMBERS:
+                    $this->date_formatted = "$date/$month/$year";
+                    break;
+                case self::FORMAT_SHORT:
+                    $this->date_formatted = $date . ' ' . $this->months_abbr_thai[$month_index] . ' ' . $year;
+                    break;
+                case self::FORMAT_LONG:
+                    $this->date_formatted = $date . ' ' . $this->months_full_thai[$month_index] . ' พ.ศ. ' . $year;
+                    break;
+            }
+        }
     }
 
     /**
