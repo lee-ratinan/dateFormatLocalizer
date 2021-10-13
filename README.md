@@ -110,3 +110,39 @@ echo $obj->format_date('2021-13-32');
 $json = json_encode($obj, JSON_PRETTY_PRINT);
 echo '<pre>' . $json . '</pre>';
 ```
+
+### JavaScript
+
+Under Construction
+
+### Calendars
+
+#### Gregorian
+
+The most popular Gregorian calendar supports all valid dates. 
+
+#### Japanese
+
+This calendar supports all Modern Japanese eras starting from Meija Era and not a day prior to 23 Oct 1868. Here are the dates:
+
+| First date  | Era (English) | Era (Japanese) |
+|-------------|---------------|----------------|
+| 23 Oct 1868 | Meiji         | 明治            |
+| 30 Jul 1912 | Taishō        | 大正            |
+| 25 Dec 1926 | Shōwa         | 昭和            |
+| 08 Jan 1989 | Heisei        | 平成            |
+| 01 May 2019 | Reiwa         | 令和            |
+
+The Japanese calendar supports only `EN-US`, `EN-UK`, and `JA-JP`.
+
+#### Taiwanese Minguo (ROC) Calendar / 中華民國曆 / 民國紀年
+
+This calendar is popular in Taiwan. Starting from 1912 as its first year, the calendar never supports any date priority to this year.
+
+The Japanese calendar supports only `EN-US`, `EN-UK`, and `ZH-TW`.
+
+#### Thai Buddhist Calendar / พุทธศักราช
+
+Because of the unique rules, the Buddhist calendar is diverse. This library supports the Thai version of the Buddhist calendar starting from 1941 (or 2484 BE).
+
+The Japanese calendar supports only `EN-US`, `EN-UK`, and `TH-TH`.
