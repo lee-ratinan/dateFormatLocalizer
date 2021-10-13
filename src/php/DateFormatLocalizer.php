@@ -193,6 +193,15 @@ class DateFormatLocalizer {
     }
 
     /**
+     * Just return formatted date after the date is prepared
+     * @return string Formatted date
+     */
+    public function get_formatted_date()
+    {
+        return $this->date_formatted;
+    }
+
+    /**
      * Set $date_formatted according to the formats in settings and the date input
      * @param string $date_string ISO8601 date string to be formatted
      */
@@ -209,7 +218,7 @@ class DateFormatLocalizer {
         $this->date_int = $date_int;
         $this->date_iso8601 = $date_validate;
         // PREPARE DATE
-        switch ($this->calendar)
+        switch ($this->set_calendar)
         {
             case self::CALENDAR_JAPANESE:
                 $this->format_japanese_calendar();
@@ -221,8 +230,8 @@ class DateFormatLocalizer {
                 $this->format_taiwanese_calendar();
                 break;
             case self::CALENDAR_GREGORIAN:
-            default:
                 $this->format_gregorian_calendar();
+                break;
         }
     }
 
