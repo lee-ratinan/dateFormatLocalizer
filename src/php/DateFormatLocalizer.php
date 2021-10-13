@@ -228,18 +228,85 @@ class DateFormatLocalizer {
 
     /**
      * Format Japanese calendar
+     * Calendar starts from 23 October 1868
+     * Start date of each era in Modern Japan:
+     * 1868-10-23 Meiji  明治 (M)
+     * 1912-07-30 Taishō 大正 (T)
+     * 1926-12-25 Shōwa  昭和 (S)
+     * 1989-01-08 Heisei 平成 (H)
+     * 2019-05-01 Reiwa  令和 (R)
      */
     private function format_japanese_calendar()
     {
-        $this->date_formatted = '';
+        $date_string = $this->date_iso8601;
+        if ($date_string < '1868-10-23')
+        {
+            $this->date_formatted = '****-**-**';
+            $this->errors[] = $this->error_messages['E002'];
+            return;
+        }
+        $year_ad = date('Y', $this->date_int);
+        $era_name = ['en' => 'Reiwa', 'ja' => '令和'];
+        $year = $year_ad-2018;
+        if ($date_string < '1912-07-30')
+        {
+            $era_name = ['en' => 'Meiji', 'ja' => '明治'];
+            $year = $year_ad-1867;
+        } elseif ($date_string < '1926-12-25')
+        {
+            $era_name = ['en' => 'Taishō', 'ja' => '大正'];
+            $year = $year_ad-1911;
+        } elseif ($date_string < '1989-01-08')
+        {
+            $era_name = ['en' => 'Shōwa', 'ja' => '昭和'];
+            $year = $year_ad-1925;
+        } elseif ($date_string < '2019-05-01')
+        {
+            $era_name = ['en' => 'Heisei', 'ja' => '平成'];
+            $year = $year_ad-1988;
+        }
+        if (self::LOCALE_ENGLISH_US == $this->set_locale || self::LOCALE_ENGLISH_UK == $this->set_locale)
+        {
+            switch ($this->set_format)
+            {
+                case self::FORMAT_NUMBERS:
+                    $this->date_formatted = date('d/m/', $this->date_int) . substr($era_name['en'], 0, 1) . $year;
+                    break;
+                case self::FORMAT_SHORT:
+                    $this->date_formatted = date('j M ', $this->date_int) . substr($era_name['en'], 0, 1) . $year;
+                    break;
+                case self::FORMAT_LONG:
+                    $this->date_formatted = date('j F ', $this->date_int) . $era_name['en'] . $year;
+            }
+        } else {
+            switch ($this->set_format)
+            {
+                case self::FORMAT_NUMBERS:
+                    $this->date_formatted = $era_name['ja'] . $year . date('.m.d', $this->date_int);
+                    break;
+                case self::FORMAT_SHORT:
+                case self::FORMAT_LONG:
+                    $this->date_formatted = $era_name['ja'] . $year . date('年m月d日', $this->date_int);
+                    break;
+            }
+        }
+
     }
 
     /**
      * Format Thai Buddhist calendar
+     * Calendar starts from 1 January 1941 (2484 BE)
      */
     private function format_thai_calendar()
     {
-        $year = intval(date('Y', $this->date_int))+543;
+        $year = intval(date('Y', $this->date_int));
+        if (1941 > $year)
+        {
+            $this->date_formatted = '****-**-**';
+            $this->errors[] = $this->error_messages['E002'];
+            return;
+        }
+        $year += 543;
         $month = date('n', $this->date_int);
         $month_index = intval(date('n', $this->date_int))-1;
         $date = date('j', $this->date_int);
@@ -281,7 +348,7 @@ class DateFormatLocalizer {
                     $this->date_formatted = $date . ' ' . $this->months_abbr_thai[$month_index] . ' ' . $year;
                     break;
                 case self::FORMAT_LONG:
-                    $this->date_formatted = $date . ' ' . $this->months_full_thai[$month_index] . ' พ.ศ. ' . $year;
+                    $this->date_formatted = 'วันที่ '. $date . ' ' . $this->months_full_thai[$month_index] . ' พ.ศ. ' . $year;
                     break;
             }
         }
@@ -289,6 +356,7 @@ class DateFormatLocalizer {
 
     /**
      * Format Taiwanese ROC calendar
+     * Calendar starts from 1 January 1912
      */
     private function format_taiwanese_calendar()
     {
