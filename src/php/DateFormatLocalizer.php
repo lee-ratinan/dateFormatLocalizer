@@ -289,13 +289,13 @@ class DateFormatLocalizer {
                     $this->date_formatted = date('j M ', $this->date_int) . substr($era_name['en'], 0, 1) . $year;
                     break;
                 case self::FORMAT_LONG:
-                    $this->date_formatted = date('j F ', $this->date_int) . $era_name['en'] . $year;
+                    $this->date_formatted = date('j F ', $this->date_int) . $era_name['en'] . ' ' . $year;
             }
         } else {
             switch ($this->set_format)
             {
                 case self::FORMAT_NUMBERS:
-                    $this->date_formatted = $era_name['ja'] . $year . date('.m.d', $this->date_int);
+                    $this->date_formatted = mb_substr($era_name['ja'], 0, 1) . $year . date('.m.d', $this->date_int);
                     break;
                 case self::FORMAT_SHORT:
                 case self::FORMAT_LONG:
@@ -385,13 +385,13 @@ class DateFormatLocalizer {
             switch ($this->set_format)
             {
                 case self::FORMAT_NUMBERS:
-                    $this->date_formatted = 'ROC ' . date('d/m/', $this->date_int) . $year;
+                    $this->date_formatted = date('d/m/', $this->date_int) . $year . ' ROC';
                     break;
                 case self::FORMAT_SHORT:
-                    $this->date_formatted = 'ROC ' . date('j M ', $this->date_int) . $year;
+                    $this->date_formatted = date('j M ', $this->date_int) . $year . ' ROC';
                     break;
                 case self::FORMAT_LONG:
-                    $this->date_formatted = 'ROC ' . date('j F ', $this->date_int) . $year;
+                    $this->date_formatted = date('j F ', $this->date_int) . $year . ' ROC';
                     break;
             }
         } else {
@@ -448,11 +448,11 @@ class DateFormatLocalizer {
             switch ($this->set_format)
             {
                 case self::FORMAT_NUMBERS:
-                    $this->date_formatted = date('y.m.d', $this->date_int);
+                    $this->date_formatted = date('Y.m.d', $this->date_int);
                     break;
                 case self::FORMAT_SHORT:
                 case self::FORMAT_LONG:
-                    $this->date_formatted = date('y年m月d日', $this->date_int);
+                    $this->date_formatted = date('Y年m月d日', $this->date_int);
                     break;
             }
         } elseif (in_array($this->set_locale, [self::LOCALE_CHINESE_TAIWAN, self::LOCALE_CHINESE_CHINA]))
@@ -460,11 +460,11 @@ class DateFormatLocalizer {
             switch ($this->set_format)
             {
                 case self::FORMAT_NUMBERS:
-                    $this->date_formatted = date('y-m-d', $this->date_int);
+                    $this->date_formatted = date('Y-m-d', $this->date_int);
                     break;
                 case self::FORMAT_SHORT:
                 case self::FORMAT_LONG:
-                    $this->date_formatted = date('y年m月d日', $this->date_int);
+                    $this->date_formatted = date('Y年m月d日', $this->date_int);
                     break;
             }
         } elseif (self::LOCALE_THAI == $this->set_locale)
