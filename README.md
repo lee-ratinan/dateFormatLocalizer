@@ -79,3 +79,34 @@ echo '<pre>' . $json . '</pre>';
  */
 echo $obj->get_formatted_date();
 ```
+
+When the date is invalid, the class return `****-**-**`.
+
+```PHP
+$obj = new DateFormatLocalizer();
+$obj->settings('GREGORIAN', 'EN-US', 'S');
+
+/*
+ * This will return invalid date format
+ * Output: ****-**-**
+ */
+echo $obj->format_date('2021-13-32');
+
+/*
+ * This will print all public properties of the class
+ * Output:
+ * {
+ *     "date_iso8601": "****-**-**",
+ *     "date_int": 0,
+ *     "date_formatted": "****-**-**",
+ *     "set_calendar": "GREGORIAN",
+ *     "set_locale": "EN-US",
+ *     "set_format": "S",
+ *     "errors": [
+ *         "Date input is invalid."
+ *     ]
+ * }
+ */
+$json = json_encode($obj, JSON_PRETTY_PRINT);
+echo '<pre>' . $json . '</pre>';
+```

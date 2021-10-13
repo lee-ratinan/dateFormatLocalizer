@@ -34,6 +34,7 @@ class DateFormatLocalizer {
      * OTHERS
      */
     const DATE_FORMAT_ISO8601 = 'Y-m-d';
+    const INVALID_DATE_FORMAT = '****-**-**';
 
     private $supported_calendar = [
         self::CALENDAR_GREGORIAN,
@@ -212,6 +213,9 @@ class DateFormatLocalizer {
         if ($date_string != $date_validate)
         {
             // DATE IS INVALID
+            $this->date_int = 0;
+            $this->date_iso8601 = self::INVALID_DATE_FORMAT;
+            $this->date_formatted = self::INVALID_DATE_FORMAT;
             $this->errors[] = $this->error_messages['E001'];
             return;
         }
@@ -250,7 +254,7 @@ class DateFormatLocalizer {
         $date_string = $this->date_iso8601;
         if ($date_string < '1868-10-23')
         {
-            $this->date_formatted = '****-**-**';
+            $this->date_formatted = self::INVALID_DATE_FORMAT;
             $this->errors[] = $this->error_messages['E002'];
             return;
         }
@@ -311,7 +315,7 @@ class DateFormatLocalizer {
         $year = intval(date('Y', $this->date_int));
         if (1941 > $year)
         {
-            $this->date_formatted = '****-**-**';
+            $this->date_formatted = self::INVALID_DATE_FORMAT;
             $this->errors[] = $this->error_messages['E002'];
             return;
         }
@@ -372,7 +376,7 @@ class DateFormatLocalizer {
         $year = intval(date('Y', $this->date_int))-1911;
         if (1 > $year)
         {
-            $this->date_formatted = '****-**-**';
+            $this->date_formatted = self::INVALID_DATE_FORMAT;
             $this->errors[] = $this->error_messages['E002'];
             return;
         }
