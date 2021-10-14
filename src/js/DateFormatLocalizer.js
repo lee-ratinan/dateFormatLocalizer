@@ -228,9 +228,9 @@
             if ('N' === format_code) {
                 element.html(dd+'/'+mm+'/'+year);
             } else if ('S' === format_code) {
-                element.html(dd + months_abbr_thai[mi] + year);
+                element.html(dd + ' ' + months_abbr_thai[mi] + ' ' + year);
             } else {
-                element.html(dd + months_full_thai[mi] + ' พ.ศ. ' + year);
+                element.html(dd + ' ' + months_full_thai[mi] + ' พ.ศ. ' + year);
             }
         }
     };
