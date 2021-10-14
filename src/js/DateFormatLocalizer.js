@@ -51,6 +51,10 @@
             }
         });
     };
+    let error_messages = {
+        'E001': 'Date input is invalid.',
+        'E002': 'Input date is not supported by the calendar.'
+    };
     let months_full_thai = [
         'มกราคม',
         'กุมภาพันธ์',
@@ -95,8 +99,29 @@
         element.html(string);
     };
     let formatTaiwaneseCalendar = function (element, locale_code, format_code, date_object) {
-        let string = date_object;
-        element.html(string);
+        let y = date_object.getFullYear()-1911;
+        let date_int = date_object.getTime()/1000;
+        if (1 > y) {
+            element.html(error_messages['E002']);
+            return;
+        }
+        if ('EN-US' === locale_code || 'EN-UK' === locale_code) {
+            if ('N' === format_code) {
+                element.html(date('d/m/', date_int) + y + ' ROC');
+            } else if ('S' === format_code) {
+                element.html(date('j M ', date_int) + y + ' ROC');
+            } else {
+                element.html(date('j F ', date_int) + y + ' ROC');
+            }
+        } else {
+            if ('N' === format_code) {
+                element.html(y + date('.m.d', date_int));
+            } else if ('S' === format_code) {
+                element.html(y + date('年m月d日', date_int));
+            } else {
+                element.html('民國' + y + date('年m月d日', date_int));
+            }
+        }
     };
     let formatThaiCalendar = function (element, locale_code, format_code, date_object) {
         let string = date_object;
