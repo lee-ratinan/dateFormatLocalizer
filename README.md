@@ -113,15 +113,65 @@ echo '<pre>' . $json . '</pre>';
 
 ### JavaScript
 
-Under Construction
+This is the jQuery plugin, so jQuery JS has to be included into the HTML file first. Then, include the `DateFormatLocalizer.js` or the minified `DateFormatLocalizer.min.js`.
 
-### Calendars
+**Method 1:** Add `data-calendar`, `data-locale`, `data-format`, and `data-date` as the data attributes of the target element and call `.DateFormatLocalizer()` in JavaScript.
 
-#### Gregorian
+HTML:
+
+```HTML
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="../src/js/DateFormatLocalizer.js"></script>
+<div id="format-date" data-calendar="GREGORIAN" data-locale="EN-US" data-format="S" data-date="2021-11-15"></div>
+```
+
+JavaScript:
+
+```JavaScript
+$(function () {
+  $('#format-date').dateFormatLocalizer();
+});
+```
+
+Output:
+
+```
+Nov 15, 2021
+```
+
+**Method 2:** Only add the `data-date` in the target element and pass the `calendar`, `locale`, and `format` in the jQuery function.
+
+HTML:
+
+```HTML
+<div id="format-date" data-date="2021-11-15"></div>
+```
+
+JavaScript:
+
+```JavaScript
+$(function () {
+  $('#format-date').dateFormatLocalizer({
+    'calendar': 'GREGORIAN',
+    'locale': 'EN-US',
+    'format': 'S'
+  });
+});
+```
+
+Output:
+
+```
+Nov 15, 2021
+```
+
+## Calendars
+
+### Gregorian
 
 The most popular Gregorian calendar supports all valid dates. 
 
-#### Japanese
+### Japanese
 
 This calendar supports all Modern Japanese eras starting from Meija Era and not a day prior to 23 Oct 1868. Here are the dates:
 
@@ -135,13 +185,13 @@ This calendar supports all Modern Japanese eras starting from Meija Era and not 
 
 The Japanese calendar supports only `EN-US`, `EN-UK`, and `JA-JP`.
 
-#### Taiwanese Minguo (ROC) Calendar / 中華民國曆 / 民國紀年
+### Taiwanese Minguo (ROC) Calendar / 中華民國曆 / 民國紀年
 
 This calendar is popular in Taiwan. Starting from 1912 as its first year, the calendar never supports any date priority to this year.
 
 The Japanese calendar supports only `EN-US`, `EN-UK`, and `ZH-TW`.
 
-#### Thai Buddhist Calendar / พุทธศักราช
+### Thai Buddhist Calendar / พุทธศักราช
 
 Because of the unique rules, the Buddhist calendar is diverse. This library supports the Thai version of the Buddhist calendar starting from 1941 (or 2484 BE).
 
