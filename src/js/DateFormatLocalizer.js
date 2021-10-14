@@ -45,7 +45,7 @@
             // CHECK DATE > ISO8601
             let date_string = $(this).data('date') || settings.date_string,
                 date_object = new Date(date_string + 'T00:00:00Z');
-            if (isNaN(date_object.getTime()) || date_string !== date('Y-m-d', date_object.getTime()/1000)) {
+            if (isNaN(date_object.getTime()) || date_string !== date('Y-m-d', date_object.getTime() / 1000)) {
                 $(this).html(error_messages['E001']);
             } else {
                 formatDate($(this), calendar_code, locale_code, format_code, date_object);
@@ -113,7 +113,7 @@
      * @return void
      */
     let formatJapaneseCalendar = function (element, locale_code, format_code, date_object) {
-        let date_int = date_object.getTime()/1000,
+        let date_int = date_object.getTime() / 1000,
             date_string = date('Y-m-d', date_int);
         if (date_string < '1868-10-23') {
             element.html(error_messages['E002']);
@@ -121,23 +121,19 @@
         }
         let year_ad = date('Y', date_int),
             era_name = {'en': 'Reiwa', 'ja': '令和'},
-            year = year_ad-2018;
-        if (date_string < '1912-07-30')
-        {
+            year = year_ad - 2018;
+        if (date_string < '1912-07-30') {
             era_name = {'en': 'Meiji', 'ja': '明治'};
-            year = year_ad-1867;
-        } else if (date_string < '1926-12-25')
-        {
+            year = year_ad - 1867;
+        } else if (date_string < '1926-12-25') {
             era_name = {'en': 'Taishō', 'ja': '大正'};
-            year = year_ad-1911;
-        } else if (date_string < '1989-01-08')
-        {
+            year = year_ad - 1911;
+        } else if (date_string < '1989-01-08') {
             era_name = {'en': 'Shōwa', 'ja': '昭和'};
-            year = year_ad-1925;
-        } else if (date_string < '2019-05-01')
-        {
+            year = year_ad - 1925;
+        } else if (date_string < '2019-05-01') {
             era_name = {'en': 'Heisei', 'ja': '平成'};
-            year = year_ad-1988;
+            year = year_ad - 1988;
         }
         if ('EN-US' === locale_code || 'EN-UK' === locale_code) {
             if ('N' === format_code) {
@@ -164,8 +160,8 @@
      * @return void
      */
     let formatTaiwaneseCalendar = function (element, locale_code, format_code, date_object) {
-        let y = date_object.getFullYear()-1911;
-        let date_int = date_object.getTime()/1000;
+        let y = date_object.getFullYear() - 1911;
+        let date_int = date_object.getTime() / 1000;
         if (1 > y) {
             element.html(error_messages['E002']);
             return;
@@ -198,7 +194,7 @@
      */
     let formatThaiCalendar = function (element, locale_code, format_code, date_object) {
         let year = date_object.getFullYear(),
-            date_int = date_object.getTime()/1000;
+            date_int = date_object.getTime() / 1000;
         if (1941 > year) {
             element.html(error_messages['E002']);
             return;
@@ -209,7 +205,7 @@
             dd = date_object.getDate();
         if ('EN-US' === locale_code) {
             if ('N' === format_code) {
-                element.html(mm+'/'+dd+'/'+year+' BE');
+                element.html(mm + '/' + dd + '/' + year + ' BE');
             } else if ('S' === format_code) {
                 element.html(date('M j, ', date_int) + year + ' BE');
             } else {
@@ -217,7 +213,7 @@
             }
         } else if ('EN-UK' === locale_code) {
             if ('N' === format_code) {
-                element.html(dd+'/'+mm+'/'+year+' BE');
+                element.html(dd + '/' + mm + '/' + year + ' BE');
             } else if ('S' === format_code) {
                 element.html(date('j M ', date_int) + year + ' BE');
             } else {
@@ -225,7 +221,7 @@
             }
         } else {
             if ('N' === format_code) {
-                element.html(dd+'/'+mm+'/'+year);
+                element.html(dd + '/' + mm + '/' + year);
             } else if ('S' === format_code) {
                 element.html(dd + ' ' + months_abbr_thai[mi] + ' ' + year);
             } else {
@@ -242,7 +238,7 @@
      * @return void
      */
     let formatGregorianCalendar = function (element, locale_code, format_code, date_object) {
-        let date_int = date_object.getTime()/1000;
+        let date_int = date_object.getTime() / 1000;
         if ('EN-US' === locale_code) {
             if ('N' === format_code) {
                 element.html(date('m/d/y', date_int));
@@ -278,9 +274,9 @@
             if ('N' === format_code) {
                 element.html(date('d/m/y', date_int));
             } else if ('S' === format_code) {
-                element.html(d+' '+months_abbr_thai[mi]+' '+y);
+                element.html(d + ' ' + months_abbr_thai[mi] + ' ' + y);
             } else {
-                element.html(d+' '+months_full_thai[mi]+' '+y);
+                element.html(d + ' ' + months_full_thai[mi] + ' ' + y);
             }
         }
     };
