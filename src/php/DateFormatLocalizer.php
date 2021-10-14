@@ -360,7 +360,7 @@ class DateFormatLocalizer {
                     $this->date_formatted = $date . ' ' . $this->months_abbr_thai[$month_index] . ' ' . $year;
                     break;
                 case self::FORMAT_LONG:
-                    $this->date_formatted = 'วันที่ '. $date . ' ' . $this->months_full_thai[$month_index] . ' พ.ศ. ' . $year;
+                    $this->date_formatted = $date . ' ' . $this->months_full_thai[$month_index] . ' พ.ศ. ' . $year;
                     break;
             }
         }

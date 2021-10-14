@@ -85,6 +85,15 @@
         'พ.ย.',
         'ธ.ค.',
     ];
+    /**
+     * Route the formatting function according to the calendar
+     * @param element
+     * @param calendar_code
+     * @param locale_code
+     * @param format_code
+     * @param date_object
+     * @return void
+     */
     let formatDate = function (element, calendar_code, locale_code, format_code, date_object) {
         if ('GREGORIAN' === calendar_code) {
             formatGregorianCalendar(element, locale_code, format_code, date_object);
@@ -96,6 +105,14 @@
             formatThaiCalendar(element, locale_code, format_code, date_object);
         }
     };
+    /**
+     * Format date in Japanese calendar
+     * @param element
+     * @param locale_code
+     * @param format_code
+     * @param date_object
+     * @return void
+     */
     let formatJapaneseCalendar = function (element, locale_code, format_code, date_object) {
         let date_int = date_object.getTime()/1000,
             date_string = date('Y-m-d', date_int);
@@ -139,6 +156,14 @@
             }
         }
     };
+    /**
+     * Format date in Taiwanese ROC calendar
+     * @param element
+     * @param locale_code
+     * @param format_code
+     * @param date_object
+     * @return void
+     */
     let formatTaiwaneseCalendar = function (element, locale_code, format_code, date_object) {
         let y = date_object.getFullYear()-1911;
         let date_int = date_object.getTime()/1000;
@@ -164,10 +189,59 @@
             }
         }
     };
+    /**
+     * Format date in Thai calendar
+     * @param element
+     * @param locale_code
+     * @param format_code
+     * @param date_object
+     * @return void
+     */
     let formatThaiCalendar = function (element, locale_code, format_code, date_object) {
-        let string = date_object;
-        element.html(string);
+        let year = date_object.getFullYear(),
+            date_int = date_object.getTime()/1000;
+        if (1941 > year) {
+            element.html(error_messages['E002']);
+            return;
+        }
+        year += 543;
+        let mm = date('n', date_int),
+            mi = date_object.getMonth(),
+            dd = date_object.getDate();
+        if ('EN-US' === locale_code) {
+            if ('N' === format_code) {
+                element.html(mm+'/'+dd+'/'+year+' BE');
+            } else if ('S' === format_code) {
+                element.html(date('M j, ', date_int) + year + ' BE');
+            } else {
+                element.html(date('F j, ', date_int) + year + ' BE');
+            }
+        } else if ('EN-UK' === locale_code) {
+            if ('N' === format_code) {
+                element.html(dd+'/'+mm+'/'+year+' BE');
+            } else if ('S' === format_code) {
+                element.html(date('j M ', date_int) + year + ' BE');
+            } else {
+                element.html(date('j F ', date_int) + year + ' BE');
+            }
+        } else {
+            if ('N' === format_code) {
+                element.html(dd+'/'+mm+'/'+year);
+            } else if ('S' === format_code) {
+                element.html(dd + months_abbr_thai[mi] + year);
+            } else {
+                element.html(dd + months_full_thai[mi] + ' พ.ศ. ' + year);
+            }
+        }
     };
+    /**
+     * Format date in Gregorian calendar
+     * @param element
+     * @param locale_code
+     * @param format_code
+     * @param date_object
+     * @return void
+     */
     let formatGregorianCalendar = function (element, locale_code, format_code, date_object) {
         let date_int = date_object.getTime()/1000;
         if ('EN-US' === locale_code) {
@@ -211,6 +285,13 @@
             }
         }
     };
+    /**
+     * LOCUSTUS FUNCTION
+     * Format date the same way as PHP date() function
+     * @param format
+     * @param timestamp
+     * @returns string
+     */
     let date = function (format, timestamp) {
         //  discuss at: https://locutus.io/php/date/
         // original by: Carlos R. L. Rodrigues (https://www.jsfromhell.com)
