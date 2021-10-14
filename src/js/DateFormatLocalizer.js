@@ -44,12 +44,11 @@
             }
             // CHECK DATE > ISO8601
             let date_string = $(this).data('date') || settings.date_string,
-                date_object = new Date(date_string + 'T00:00:00Z'),
-                date_validator = date_object.toISOString().substr(0, 10);
-            if (date_string === date_validator) {
-                formatDate($(this), calendar_code, locale_code, format_code, date_object);
-            } else {
+                date_object = new Date(date_string + 'T00:00:00Z');
+            if (isNaN(date_object.getTime()) || date_string !== date('Y-m-d', date_object.getTime()/1000)) {
                 $(this).html(error_messages['E001']);
+            } else {
+                formatDate($(this), calendar_code, locale_code, format_code, date_object);
             }
         });
     };
