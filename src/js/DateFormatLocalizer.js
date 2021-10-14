@@ -48,12 +48,14 @@
                 date_validator = date_object.toISOString().substr(0, 10);
             if (date_string === date_validator) {
                 formatDate($(this), calendar_code, locale_code, format_code, date_object);
+            } else {
+                $(this).html(error_messages['E001']);
             }
         });
     };
     let error_messages = {
-        'E001': 'Date input is invalid.',
-        'E002': 'Input date is not supported by the calendar.'
+        'E001': '[INVALID DATE]',
+        'E002': '[DATE NOT SUPPORTED]'
     };
     let months_full_thai = [
         'มกราคม',
@@ -95,8 +97,47 @@
         }
     };
     let formatJapaneseCalendar = function (element, locale_code, format_code, date_object) {
-        let string = date_object;
-        element.html(string);
+        let date_int = date_object.getTime()/1000,
+            date_string = date('Y-m-d', date_int);
+        if (date_string < '1868-10-23') {
+            element.html(error_messages['E002']);
+            return;
+        }
+        let year_ad = date('Y', date_int),
+            era_name = {'en': 'Reiwa', 'ja': '令和'},
+            year = year_ad-2018;
+        if (date_string < '1912-07-30')
+        {
+            era_name = {'en': 'Meiji', 'ja': '明治'};
+            year = year_ad-1867;
+        } else if (date_string < '1926-12-25')
+        {
+            era_name = {'en': 'Taishō', 'ja': '大正'};
+            year = year_ad-1911;
+        } else if (date_string < '1989-01-08')
+        {
+            era_name = {'en': 'Shōwa', 'ja': '昭和'};
+            year = year_ad-1925;
+        } else if (date_string < '2019-05-01')
+        {
+            era_name = {'en': 'Heisei', 'ja': '平成'};
+            year = year_ad-1988;
+        }
+        if ('EN-US' === locale_code || 'EN-UK' === locale_code) {
+            if ('N' === format_code) {
+                element.html(date('d/m/', date_int) + era_name['en'].substr(0, 1) + year);
+            } else if ('S' === format_code) {
+                element.html(date('j M ', date_int) + era_name['en'].substr(0, 1) + year);
+            } else {
+                element.html(date('j F ', date_int) + era_name['en'] + year);
+            }
+        } else {
+            if ('N' === format_code) {
+                element.html(era_name['ja'].substr(0, 1) + year + date('.m.d', date_int));
+            } else {
+                element.html(era_name['ja'] + year + date('年m月d日', date_int));
+            }
+        }
     };
     let formatTaiwaneseCalendar = function (element, locale_code, format_code, date_object) {
         let y = date_object.getFullYear()-1911;

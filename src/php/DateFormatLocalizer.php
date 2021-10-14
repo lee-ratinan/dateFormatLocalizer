@@ -303,7 +303,6 @@ class DateFormatLocalizer {
                     break;
             }
         }
-
     }
 
     /**
