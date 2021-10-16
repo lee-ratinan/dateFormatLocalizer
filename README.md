@@ -1,4 +1,10 @@
 # dateFormatLocalizer
+
+[![GitHub last commit](https://img.shields.io/github/last-commit/lee-ratinan/dateFormatLocalizer)](https://github.com/lee-ratinan/dateFormatLocalizer/commits/main)
+[![GitHub](https://img.shields.io/github/license/lee-ratinan/dateFormatLocalizer)](https://github.com/lee-ratinan/dateFormatLocalizer/blob/main/LICENSE)
+[![GitHub all releases](https://img.shields.io/github/downloads/lee-ratinan/dateFormatLocalizer/total)](https://github.com/lee-ratinan/dateFormatLocalizer/releases)
+[![GitHub issues](https://img.shields.io/github/issues/lee-ratinan/dateFormatLocalizer)](https://github.com/lee-ratinan/dateFormatLocalizer/issues)
+
 This JS/PHP library formats date into localized formats such as ROC/Reiwa/BE calendars
 
 ## How to Use
@@ -164,6 +170,25 @@ Output:
 ```
 Nov 15, 2021
 ```
+
+#### Available Settings
+
+  * Calendars
+    * GREGORIAN
+    * JAPANESE
+    * TAIWANESE
+    * THAI
+  * Locales
+    * EN-US
+    * EN-UK
+    * JA-JP
+    * ZH-TW
+    * ZH-CN
+    * TH-TH
+  * Formats
+    * N (numeric)
+    * S (short)
+    * L (long)
 
 ## Calendars
 
