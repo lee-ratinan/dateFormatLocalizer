@@ -141,7 +141,7 @@
             } else if ('S' === format_code) {
                 element.html(date('j M ', date_int) + era_name['en'].substr(0, 1) + year);
             } else {
-                element.html(date('j F ', date_int) + era_name['en'] + year);
+                element.html(date('j F ', date_int) + era_name['en'] + ' ' + year);
             }
         } else {
             if ('N' === format_code) {
