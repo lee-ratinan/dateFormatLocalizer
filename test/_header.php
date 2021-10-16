@@ -17,7 +17,7 @@
                 GitHub Page
             </a>
             <a class="btn btn-outline-secondary" href="index.php">PHP Formatter</a>
-            <a class="btn btn-outline-secondary" href="javascript.php">JavaScript jQuery Plugin Formatter</a>
+            <a class="btn btn-outline-secondary" href="javascript.php">JavaScript Formatter</a>
         </div>
     </div>
 </div>
