@@ -4,7 +4,7 @@
  * https://github.com/lee-ratinan/dateFormatLocalizer
  */
 (function ($) {
-    $.fn.dateFormatLocalizer = function (options) {
+    $.fn.DateFormatLocalizer = function (options) {
         let settings = $.extend({
             calendar_code: 'GREGORIAN',
             locale_code: 'EN-US',
