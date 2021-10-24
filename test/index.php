@@ -77,7 +77,7 @@ if (empty($page))
   <script>
       $(function () {
           let matched = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          if (!matched) {
+          if (matched) {
               $('body').addClass('bg-dark text-white');
               $('.btn-outline-secondary').removeClass('btn-outline-secondary').addClass('btn-outline-light');
               $('table').addClass('text-white').removeClass('table-striped table-hover');
