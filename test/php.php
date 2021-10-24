@@ -20,26 +20,25 @@
             <td><?= $calendar ?></td>
             <td><?= $locale ?></td>
             <td>
-              <div class="test-date" id="test-number" data-calendar="<?= $calendar ?>"
-                   data-locale="<?= $locale ?>" data-format="N" data-date="<?= $date_string ?>"></div>
+                <?php
+                $obj->settings($calendar, $locale, DateFormatLocalizer::FORMAT_NUMBERS);
+                echo $obj->format_date($date_string);
+                ?>
             </td>
             <td>
-              <div class="test-date" id="test-short" data-calendar="<?= $calendar ?>"
-                   data-locale="<?= $locale ?>"
-                   data-format="S" data-date="<?= $date_string ?>"></div>
+                <?php
+                $obj->settings($calendar, $locale, DateFormatLocalizer::FORMAT_SHORT);
+                echo $obj->format_date($date_string);
+                ?>
             </td>
             <td>
-              <div class="test-date" id="test-long" data-calendar="<?= $calendar ?>"
-                   data-locale="<?= $locale ?>"
-                   data-format="L" data-date="<?= $date_string ?>"></div>
+                <?php
+                $obj->settings($calendar, $locale, DateFormatLocalizer::FORMAT_LONG);
+                echo $obj->format_date($date_string);
+                ?>
             </td>
           </tr>
           <?php endforeach; ?>
       <?php endforeach; ?>
   </tbody>
 </table>
-<script>
-    $(function () {
-        $('.test-date').dateFormatLocalizer();
-    });
-</script>
