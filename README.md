@@ -5,7 +5,7 @@
 [![GitHub all releases](https://img.shields.io/github/downloads/lee-ratinan/dateFormatLocalizer/total)](https://github.com/lee-ratinan/dateFormatLocalizer/releases)
 [![GitHub issues](https://img.shields.io/github/issues/lee-ratinan/dateFormatLocalizer)](https://github.com/lee-ratinan/dateFormatLocalizer/issues)
 
-This JS/PHP library formats date into localized formats such as ROC/Reiwa/BE calendars
+This JS/PHP library formats date into localized formats such as ROC/Reiwa/BE calendars.
 
 ## How to Use
 
@@ -54,7 +54,7 @@ After calling `prepare_date()`, this function return the property `date_formatte
   * Formats
     * N: `DateFormatLocalizer::FORMAT_NUMBERS`
     * S: `DateFormatLocalizer::FORMAT_SHORT`
-    * L:  `DateFormatLocalizer::FORMAT_LONG`
+    * L: `DateFormatLocalizer::FORMAT_LONG`
 
 #### Example
 
@@ -214,7 +214,7 @@ The Japanese calendar supports only `EN-US`, `EN-UK`, and `JA-JP`.
 
 This calendar is popular in Taiwan. Starting from 1912 as its first year, the calendar never supports any date priority to this year.
 
-The Japanese calendar supports only `EN-US`, `EN-UK`, and `ZH-TW`.
+The Taiwanese calendar supports only `EN-US`, `EN-UK`, and `ZH-TW`.
 
 ### Thai Buddhist Calendar / พุทธศักราช
 
