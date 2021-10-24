@@ -135,7 +135,7 @@ JavaScript:
 
 ```JavaScript
 $(function () {
-  $('#format-date').dateFormatLocalizer();
+  $('#format-date').DateFormatLocalizer();
 });
 ```
 
@@ -157,7 +157,7 @@ JavaScript:
 
 ```JavaScript
 $(function () {
-  $('#format-date').dateFormatLocalizer({
+  $('#format-date').DateFormatLocalizer({
     'calendar': 'GREGORIAN',
     'locale': 'EN-US',
     'format': 'S'

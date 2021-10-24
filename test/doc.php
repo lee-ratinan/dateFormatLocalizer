@@ -125,14 +125,14 @@ echo '&lt;pre&gt;' . $json . '&lt;/pre&gt;';
 <h4>HTML:</h4>
 <code><pre>
 &lt;script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"&gt;&lt;/script&gt;
-&lt;script src="../src/js/DateFormatLocalizer.js"&gt;&lt;/script&gt;
+&lt;script src="../src/js/DateFormatLocalizer.min.js"&gt;&lt;/script&gt;
 &lt;div id="format-date" data-calendar="GREGORIAN" data-locale="EN-US" data-format="S" data-date="2021-11-15"&gt;&lt;/div&gt;
 </pre>
 </code>
 <h4>JavaScript:</h4>
 <code><pre>
 $(function () {
-  $('#format-date').dateFormatLocalizer();
+  $('#format-date').DateFormatLocalizer();
 });
 </pre>
 </code>
@@ -151,7 +151,7 @@ Nov 15, 2021
 <h4>JavaScript:</h4>
 <code><pre>
 $(function () {
-  $('#format-date').dateFormatLocalizer({
+  $('#format-date').DateFormatLocalizer({
     'calendar': 'GREGORIAN',
     'locale': 'EN-US',
     'format': 'S'
