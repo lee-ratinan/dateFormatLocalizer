@@ -40,6 +40,6 @@
 </table>
 <script>
     $(function () {
-        $('.test-date').dateFormatLocalizer();
+        $('.test-date').DateFormatLocalizer();
     });
 </script>
